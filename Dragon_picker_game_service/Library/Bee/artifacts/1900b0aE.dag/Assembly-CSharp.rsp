@@ -361,8 +361,10 @@
 "Assets/PyroParticles/Prefab/Script/FireProjectileScript.cs"
 "Assets/PyroParticles/Prefab/Script/MeteorSwarmScript.cs"
 "Assets/PyroParticles/Prefab/Script/SingleLineAttribute.cs"
+"Assets/Scenes/Dragon Picker.cs"
 "Assets/Scenes/DragonEgg.cs"
 "Assets/Scenes/Enemy Dragon.cs"
+"Assets/Scenes/Energy Shield.cs"
 -langversion:9.0
 
 /deterministic
