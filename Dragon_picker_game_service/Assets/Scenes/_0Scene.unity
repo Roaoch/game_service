@@ -535,6 +535,14 @@ MonoBehaviour:
   energyShieldBottomY: -6
   energyShieldRadius: 1.5
   shieldList: []
+  elementsInInventoryCount: 
+  elementsList:
+  - {fileID: 7551630499030188363, guid: ffedd4fede6355547a8291a422e3e626, type: 3}
+  - {fileID: 7551630499030188363, guid: ffedd4fede6355547a8291a422e3e626, type: 3}
+  - {fileID: 7551630499030188363, guid: ffedd4fede6355547a8291a422e3e626, type: 3}
+  - {fileID: 7551630499030188363, guid: ffedd4fede6355547a8291a422e3e626, type: 3}
+  - {fileID: 7551630499030188363, guid: ffedd4fede6355547a8291a422e3e626, type: 3}
+  elementsCount: 0
 --- !u!1 &1585013333
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +633,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 454130, guid: 71c2b6c1128b0f84098215fa5583e509, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.41
       objectReference: {fileID: 0}
     - target: {fileID: 454130, guid: 71c2b6c1128b0f84098215fa5583e509, type: 3}
       propertyPath: m_LocalPosition.z
@@ -662,10 +670,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 101568, guid: 71c2b6c1128b0f84098215fa5583e509, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2088445419}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71c2b6c1128b0f84098215fa5583e509, type: 3}
 --- !u!1 &1707432533
 GameObject:
@@ -876,26 +881,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2088445416 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 101568, guid: 71c2b6c1128b0f84098215fa5583e509, type: 3}
-  m_PrefabInstance: {fileID: 1684106854}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2088445419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2088445416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23205b8c5ba7366439d615024f476906, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dragonEggPrefab: {fileID: 151522644980266558, guid: b2926990207f52e4fbb3b68625d07d33, type: 3}
-  speed: 5
-  timeBeforeFirstEggDrop: 1
-  timeBetweenEggDrops: 1
-  leftRightDistance: 10
-  chanceDirection: 0.01
