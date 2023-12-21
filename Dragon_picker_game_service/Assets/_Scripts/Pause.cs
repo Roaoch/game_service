@@ -7,7 +7,14 @@ using UnityEngine.SceneManagement;
 public class Pause : MonoBehaviour
 {
     private bool paused = false;
+    private DragonPicker dragonPicker;
+
     public GameObject pauseModal;
+
+    private void Start()
+    {
+        dragonPicker = Camera.main.GetComponent<DragonPicker>();
+    }
 
     void Update()
     {
@@ -17,9 +24,25 @@ public class Pause : MonoBehaviour
             pauseModal.SetActive(paused);
             Time.timeScale = paused ? 0: 1;
         }
-        if (Input.GetKeyDown(KeyCode.Escape))
+        else if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Q))
+        {
+            dragonPicker.AddElementToHand(ElementsEnum.Earth);
+        }
+        else if (Input.GetKeyDown(KeyCode.W))
+        {
+            dragonPicker.AddElementToHand(ElementsEnum.Fire);
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            dragonPicker.AddElementToHand(ElementsEnum.Wind);
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            dragonPicker.ExcSpell();
         }
     }
 }

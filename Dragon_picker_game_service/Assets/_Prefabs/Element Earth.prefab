@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 5530756767043551747}
   - component: {fileID: 6572813636169544626}
   - component: {fileID: 4067157828768052507}
-  - component: {fileID: 6520392008167637342}
-  - component: {fileID: 8834876851421877644}
-  - component: {fileID: -807184751812190136}
+  - component: {fileID: 8385841800422336229}
+  - component: {fileID: -4564914621706875813}
   m_Layer: 0
-  m_Name: Element Fire
-  m_TagString: Element Fire
+  m_Name: Element Earth
+  m_TagString: Element Earth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9f663aa0d3dc3f44389306ed68c6c668, type: 2}
+  - {fileID: 2100000, guid: 02233442219ea264fb7d3b96e3582eb1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,20 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6520392008167637342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551630499030188363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69884f7fdccc5e349a0e326ed0947792, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!65 &8834876851421877644
-BoxCollider:
+--- !u!135 &8385841800422336229
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,9 +104,9 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-807184751812190136
+--- !u!114 &-4564914621706875813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Dragon Egg
+  - Element Fire
+  - Element Earth
+  - Element Wind
   layers:
   - Default
   - TransparentFX
