@@ -32,6 +32,7 @@ public class DragonPicker : MonoBehaviour
     [SerializeField] private float energyShieldBottomY = -6f;
     [SerializeField] private float energyShieldRadius = 1.5f;
     [SerializeField] private GameObject energyShieldPrefab;
+    [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private List<GameObject> shieldList;
     [SerializeField] private List<ElementsListItem> elementsList;
 
