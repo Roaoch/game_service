@@ -7,8 +7,6 @@ public class EnergyShield : MonoBehaviour
 {
     private AudioSource audioSource;
 
-    public TextMeshProUGUI scoreGT;
-
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();

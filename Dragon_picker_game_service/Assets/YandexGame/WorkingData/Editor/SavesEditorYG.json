@@ -1,0 +1,17 @@
+{
+    "idSave": 10,
+    "isFirstSession": false,
+    "language": "ru",
+    "promptDone": false,
+    "money": 1,
+    "newPlayerName": "Hello!",
+    "openLevels": [
+        false,
+        true,
+        false
+    ],
+    "bestScore": 78,
+    "achivments": [
+        "Береги щиты!"
+    ]
+}

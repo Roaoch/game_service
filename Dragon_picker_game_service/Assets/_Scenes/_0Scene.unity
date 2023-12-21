@@ -987,6 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bestScoreGT: {fileID: 0}
+  achivmentsListGT: {fileID: 0}
 --- !u!4 &505941512
 Transform:
   m_ObjectHideFlags: 0

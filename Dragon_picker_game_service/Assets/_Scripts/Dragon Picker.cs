@@ -8,25 +8,53 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
 
+public enum ElementsEnum
+{
+    Fire,
+    Earth,
+    Wind
+}
+
 public class DragonPicker : MonoBehaviour
 {
+    [Serializable]
+    class ElementsListItem
+    {
+        public GameObject elementObj;
+        public int count = 0;
+    }
+
     private void OnEnable() => YandexGame.GetDataEvent += GetYGSaves;
     private void OnDisable() => YandexGame.GetDataEvent -= GetYGSaves;
 
-    [SerializeField] private GameObject energyShieldPrefab;
+    
     [SerializeField] private int numEnegryShield = 3;
     [SerializeField] private float energyShieldBottomY = -6f;
     [SerializeField] private float energyShieldRadius = 1.5f;
+    [SerializeField] private GameObject energyShieldPrefab;
     [SerializeField] private List<GameObject> shieldList;
-    [SerializeField] private List<int> elementsInInventoryCount;
-    [SerializeField] private List<GameObject> elementsList;
-    [SerializeField] private int elementsCount;
-    private int timeBetweenSpawnElements = 5;
+    [SerializeField] private List<ElementsListItem> elementsList;
+
+    private int timeBetweenSpawnElements = 3;
     private float time = 0;
     private int score = 0;
+    private ElementsEnum?[] elementsHand = new ElementsEnum?[2];
 
-    public TextMeshProUGUI scoreGT;
-    public TextMeshProUGUI playerNameGT;
+    private TextMeshProUGUI scoreGT;
+    private TextMeshProUGUI playerNameGT;
+    private TextMeshProUGUI elementsGT;
+    private TextMeshProUGUI elementsHandGT;
+
+    private ElementsEnum tagToElementrsEnum(string tag)
+    {
+        if (tag.Contains("Fire")) { return ElementsEnum.Fire; }
+        else if (tag.Contains("Earth")) { return ElementsEnum.Earth; }
+        else if (tag.Contains("Wind")) { return ElementsEnum.Wind; }
+        else
+        {
+            throw new Exception(tag);
+        }
+    }
 
     void Start()
     {
@@ -44,17 +72,17 @@ public class DragonPicker : MonoBehaviour
         scoreGT.text = "Score: 0";
 
         playerNameGT = GameObject.Find("Player Name").GetComponent<TextMeshProUGUI>();
+        elementsGT = GameObject.Find("Elements").GetComponent<TextMeshProUGUI>();
+        elementsHandGT = GameObject.Find("ElementsHand").GetComponent<TextMeshProUGUI>();
 
         if (YandexGame.SDKEnabled) { GetYGSaves(); }
     }
 
-    // Update is called once per frame
     void Update()
     {
         time = time + Time.deltaTime;
         if (time >= timeBetweenSpawnElements)
         {
-            Debug.Log("Time passed");
             SpawnElement();
             time = 0;
         }
@@ -80,14 +108,58 @@ public class DragonPicker : MonoBehaviour
         scoreGT.text = $"Score: {score}";
     }
 
+    public void ElementHit(string tag)
+    {
+        foreach (var element in elementsList)
+        {
+            if (element.elementObj.tag == tag)
+            {
+                element.count += 1;
+                elementsGT.text = string.Join("\n", elementsList
+                    .Select((e) => $"{tagToElementrsEnum(e.elementObj.tag)} - {e.count}")
+                    .ToArray()
+                );
+                break;
+            }
+        }
+    }
+
     public void SpawnElement()
     {
-        Debug.Log("element must be spawned");
         var r = new System.Random();
-        var element = r.Next(0,4);
+        var element = r.Next(0,3);
         var coordinatesWidth = r.Next(-19, 19);
         var coordinatesHeight = r.Next(-9, 9);
-        Instantiate(elementsList[element], new Vector3(coordinatesWidth, coordinatesHeight, 0), new Quaternion(0,0,0,0));
+        Instantiate(elementsList[element].elementObj, new Vector3(coordinatesWidth, coordinatesHeight, 0), new Quaternion(0,0,0,0));
+    }
+
+    public void AddElementToHand(ElementsEnum element)
+    {
+        for (var i = 0; i < elementsHand.Length; i++) 
+        { 
+            if (elementsHand[i] == null)
+            {
+                elementsHand[i] = element;
+                elementsHandGT.text = string.Join(" ", elementsHand);
+                break;
+            }
+        }
+    }
+
+    public void ExcSpell()
+    {
+        if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == null) {  }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == null) { }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Fire) { }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { }
+        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Wind) { }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Earth) { }
+        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Fire) { }
+
+        elementsHand = new ElementsEnum?[elementsHand.Length];
+        elementsHandGT.text = "";
     }
 
     public void GetYGSaves()
