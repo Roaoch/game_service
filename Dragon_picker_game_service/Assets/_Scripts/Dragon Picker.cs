@@ -87,6 +87,26 @@ public class DragonPicker : MonoBehaviour
             SpawnElement();
             time = 0;
         }
+        if (elementsList[0].count > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                AddElementToHand(ElementsEnum.Earth);
+        }
+        if (elementsList[1].count > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                AddElementToHand(ElementsEnum.Fire);
+        }
+        if (elementsList[2].count > 0)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+                AddElementToHand(ElementsEnum.Wind);
+        }
+        if (elementsHand[0] is not null)
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                ExcSpell();              
+            }
     }
 
     public void EggHitShield()
@@ -130,8 +150,8 @@ public class DragonPicker : MonoBehaviour
         var r = new System.Random();
         var element = r.Next(0,3);
         var coordinatesWidth = r.Next(-19, 19);
-        var coordinatesHeight = r.Next(-9, 9);
-        Instantiate(elementsList[element].elementObj, new Vector3(coordinatesWidth, coordinatesHeight, 0), new Quaternion(0,0,0,0));
+        var coordinatesHeight = r.Next(-5, 9);
+        Instantiate(elementsList[element].elementObj, new Vector3(coordinatesWidth, coordinatesHeight, -2), new Quaternion(0,0,0,0));
     }
 
     public void AddElementToHand(ElementsEnum element)
@@ -149,15 +169,15 @@ public class DragonPicker : MonoBehaviour
 
     public void ExcSpell()
     {
-        if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == null) {  }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == null) { }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Fire) { }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { }
-        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Wind) { }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Earth) { }
-        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Fire) { }
+        if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == null) { Debug.Log("Earth spell"); ShootProjectile(ElementsEnum.Earth, 2, 15); }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == null) { Debug.Log("fire spell"); ShootProjectile(ElementsEnum.Fire, 2, 5, false, true); }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { Debug.Log("wind spell"); ShootProjectile(ElementsEnum.Wind, 4, 30); }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { Debug.Log("fire+wind spell"); ShootProjectile(ElementsEnum.Fire, 1, 10f, true, true); }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Fire) { Debug.Log("Wind+fire spell"); }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { Debug.Log("Fire+earth spell");  for(int i = 0; i<5;i++) { ShootProjectile(ElementsEnum.Earth, 3, 10); } }
+        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Wind) { Debug.Log("Earth+wind spell"); }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Earth) { Debug.Log("wind+earth spell"); }
+        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Fire) { Debug.Log("Earth+fire spell"); }
 
         elementsHand = new ElementsEnum?[elementsHand.Length];
         elementsHandGT.text = "";
@@ -180,7 +200,17 @@ public class DragonPicker : MonoBehaviour
                 .Distinct()
                 .ToArray();
         }
-
         YandexGame.SaveProgress();
+    }
+
+    public void ShootProjectile(ElementsEnum type, float speed, float damage, bool autoAim = false, bool isDurational = false)
+    {
+        Debug.Log("Shooted");
+        var shootedProjectile = Instantiate<GameObject>(projectilePrefab, shieldList[0].transform.position + new Vector3(0, 2, 0), shieldList[0].transform.rotation).GetComponent<Projectile>();
+        shootedProjectile.speed = speed;
+        shootedProjectile.damage = damage;
+        shootedProjectile.type = type;
+        shootedProjectile.autoAim = autoAim;
+        shootedProjectile.isDurational = isDurational;
     }
 }

@@ -24,15 +24,15 @@ public class EnergyShield : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject collided = collision.gameObject;
-        if (collided.tag == "Dragon Egg")
+        
+        if (collision.collider.tag == "Dragon Egg")
         {
             DragonPicker apScript = Camera.main.GetComponent<DragonPicker>();
             apScript.EggHitShield();
 
             audioSource.Play();
 
-            Destroy(collided);
+            Destroy(collision.gameObject);
         }
     }
 }

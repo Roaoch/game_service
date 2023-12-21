@@ -8,14 +8,15 @@ TagManager:
   - Element Fire
   - Element Earth
   - Element Wind
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Dragon
   - Water
   - UI
-  - 
+  - Egg
   - 
   - 
   - 

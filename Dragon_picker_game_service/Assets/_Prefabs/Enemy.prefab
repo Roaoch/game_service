@@ -138,6 +138,8 @@ MonoBehaviour:
   timeBetweenEggDrops: 1
   leftRightDistance: 10
   chanceDirection: 0.01
+  health: 100
+  element: 0
 --- !u!1 &101846
 GameObject:
   m_ObjectHideFlags: 0
@@ -2324,9 +2326,10 @@ GameObject:
   m_Component:
   - component: {fileID: 414830}
   - component: {fileID: 13719964}
+  - component: {fileID: 2467647339029123650}
   m_Layer: 0
   m_Name: DragonMesh
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2482,6 +2485,28 @@ SkinnedMeshRenderer:
     m_Center: {x: 58.695984, y: 18.95456, z: 0.58447266}
     m_Extent: {x: 502.86066, y: 504.02463, z: 633.1132}
   m_DirtyAABB: 0
+--- !u!64 &2467647339029123650
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182918}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 3fa06637f7751b44b8e63a9964b181a6, type: 3}
 --- !u!1 &185696
 GameObject:
   m_ObjectHideFlags: 0
