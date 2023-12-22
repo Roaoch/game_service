@@ -25,8 +25,13 @@ public class RayCast : MonoBehaviour
                     hit.collider.tag == "Element Wind"
                 ) 
                 {
-                    hit.collider.GetComponent<InGameElement>().OnHitByPlayer();
-                    Camera.main.GetComponent<DragonPicker>().ElementHit(hit.collider.tag);
+                    if (hit.collider.GetComponent<InGameElement>() is not null)
+                    {
+                        hit.collider.GetComponent<InGameElement>().OnHitByPlayer();
+                        Camera.main.GetComponent<DragonPicker>().ElementHit(hit.collider.tag);
+                    }
+                    else
+                        hit.collider.GetComponent<ElementToLevel>().OnHitByPlayer();
                 }
             }
         }

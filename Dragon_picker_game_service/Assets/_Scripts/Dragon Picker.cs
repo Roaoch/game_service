@@ -123,26 +123,6 @@ public class DragonPicker : MonoBehaviour
             SpawnElement();
             time = 0;
         }
-        /*if (elementsList[0].count > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                AddElementToHand(ElementsEnum.Earth);
-        }
-        if (elementsList[1].count > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-                AddElementToHand(ElementsEnum.Fire);
-        }
-        if (elementsList[2].count > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-                AddElementToHand(ElementsEnum.Wind);
-        }
-        if (elementsHand[0] is not null)
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                ExcSpell();              
-            }*/
     }
 
     public void EggHitShield()
@@ -162,7 +142,6 @@ public class DragonPicker : MonoBehaviour
             YandexGame.RewVideoShow(0);
             endModal.ToggleEndModal(RootToEnd.PlayerIsDead);
             YGSaveData("Береги щиты!");
-            SceneManager.LoadScene("_0Scene");
         }
     }
 
@@ -187,8 +166,8 @@ public class DragonPicker : MonoBehaviour
         var r = new System.Random();
         var element = r.Next(0,3);
         var coordinatesWidth = r.Next(-19, 19);
-        var coordinatesHeight = r.Next(-5, 9);
-        Instantiate(elementsList[element], new Vector3(coordinatesWidth, coordinatesHeight, -2), new Quaternion(0,0,0,0));
+        var coordinatesHeight = r.Next(-4, 9);
+        Instantiate(elementsList[element], new Vector3(coordinatesWidth, coordinatesHeight, 2), new Quaternion(0,0,0,0));
     }
 
     public void AddElementToHand(ElementsEnum element)
@@ -221,7 +200,7 @@ public class DragonPicker : MonoBehaviour
         else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Wind, baseSpellSpeed*2, baseDamage*2); }
         else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { ShootProjectile(ElementsEnum.Fire, baseSpellSpeed/2, baseDamage, true, true); }
         else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Fire) { MakeParryState(); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { for(int i = 0; i<5;i++) { ShootProjectile(ElementsEnum.Earth, baseSpellSpeed*3, baseDamage); } }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { for(int i =0; i<5;i++) ShootProjectile(ElementsEnum.Earth, baseSpellSpeed*3, baseDamage);  }
         else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Wind) { MakeShield(); }
         else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Earth) { enemyDragon.TempIncressSpeedMultiplier(); }
         else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Fire) { MakeAura(); }

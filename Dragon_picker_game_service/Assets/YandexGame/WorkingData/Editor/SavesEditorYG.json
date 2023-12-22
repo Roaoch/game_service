@@ -1,5 +1,5 @@
 {
-    "idSave": 23,
+    "idSave": 25,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -18,6 +18,6 @@
     "speedScale": 1.0,
     "numEnegryShield": 3,
     "elementsCopacity": 5,
-    "expirience": 0,
+    "expirience": 0.0,
     "level": 1
 }
