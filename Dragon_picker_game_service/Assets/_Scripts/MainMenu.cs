@@ -10,8 +10,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject fireLevel;
     [SerializeField] private GameObject windLevel;
     [SerializeField] private GameObject playGameButton;
-    [SerializeField] private GameObject achivmentButton;
-    [SerializeField] private GameObject optionButton;
+    [SerializeField] private GameObject levelUpButton;
+    [SerializeField] private GameObject purchesButton;
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -20,8 +20,8 @@ public class MainMenu : MonoBehaviour
     public void SelectLevel()
     {
         playGameButton.SetActive(false);
-        achivmentButton.SetActive(false);
-        optionButton.SetActive(false);
+        levelUpButton.SetActive(false);
+        purchesButton.SetActive(false);
         earthLevel.SetActive(true);
         fireLevel.SetActive(true);
         windLevel.SetActive(true);     

@@ -20,7 +20,7 @@ namespace YG
 
         public float damageScale = 1;
         public float speedScale = 1;
-        public int expirienceScale = 1;
+        public float expirienceScale = 1;
         public int numEnegryShield = 3;
         public int elementsCopacity = 5;
         public float expirience = 0;

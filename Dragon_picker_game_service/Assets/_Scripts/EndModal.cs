@@ -50,11 +50,11 @@ public class EndModal : MonoBehaviour
         }
         else if (rootToEnd is RootToEnd.DragonIsDead)
         {
-            var newLevel = (int)Math.Floor(YandexGame.savesData.expirience / YandexGame.savesData.toNewLevel);
-            if (newLevel >= ++YandexGame.savesData.level)
+            var newLevel = (int)(YandexGame.savesData.expirience / YandexGame.savesData.toNewLevel);
+            if (newLevel >= YandexGame.savesData.level + 1)
             {
-                YandexGame.savesData.level = newLevel;
                 YandexGame.savesData.levelUpPoints += newLevel - YandexGame.savesData.level;
+                YandexGame.savesData.level = newLevel;
                 YandexGame.SaveProgress();
                 endModalText.text = $"You acquire {newLevel} level!";
             }
