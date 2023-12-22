@@ -6,27 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
-    private bool paused = false;
     private DragonPicker dragonPicker;
-
-    public GameObject pauseModal;
+    private EndModal endModal;
 
     private void Start()
     {
         dragonPicker = Camera.main.GetComponent<DragonPicker>();
+        endModal = GameObject.FindObjectOfType<EndModal>(true);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            paused = !paused;
-            pauseModal.SetActive(paused);
-            Time.timeScale = paused ? 0: 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            endModal.ToggleEndModal(RootToEnd.InGame);
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {

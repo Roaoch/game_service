@@ -38,15 +38,15 @@ public class DragonPicker : MonoBehaviour
 
     public List<GameObject> elementsList;
 
-    [SerializeField] private int numEnegryShield = 3;
     [SerializeField] private float energyShieldBottomY = -6f;
     [SerializeField] private float energyShieldRadius = 1.5f;
-    [SerializeField] private int elementsCopacity = 5;
-    [SerializeField] private float damageMultiplier = 1;
+    [SerializeField] private float baseDamage = 5;
+    [SerializeField] private float baseSpellSpeed = 5;
     [SerializeField] private GameObject energyShieldPrefab;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private List<GameObject> shieldList;
 
+    private float damageMultiplier = 1;
     private int timeBetweenSpawnElements = 3;
     private float time = 0;
     private int score = 0;
@@ -55,6 +55,7 @@ public class DragonPicker : MonoBehaviour
     private Dictionary<ElementsEnum, ElementsListItem> elementsDict;
     private ElementsEnum?[] elementsHand = new ElementsEnum?[2];
     private NewBehaviourScript enemyDragon;
+    private EndModal endModal;
 
     private TextMeshProUGUI scoreGT;
     private TextMeshProUGUI playerNameGT;
@@ -91,7 +92,7 @@ public class DragonPicker : MonoBehaviour
     {
         shieldList = new List<GameObject>();
 
-        for(int i =1; i<= numEnegryShield; i++)
+        for(int i =1; i<= YandexGame.savesData.numEnegryShield; i++)
         {
             GameObject tShieldGo = Instantiate<GameObject>(energyShieldPrefab);
             tShieldGo.transform.position = new Vector3(0, energyShieldBottomY, 0);
@@ -102,6 +103,7 @@ public class DragonPicker : MonoBehaviour
         elementsDict = elementsList.ToDictionary(e => TagToElementrsEnum(e.tag), e => new ElementsListItem(e, 0));
 
         enemyDragon = GameObject.Find("Enemy").GetComponent<NewBehaviourScript>();
+        endModal = GameObject.FindObjectOfType<EndModal>(true);
 
         scoreGT = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
         scoreGT.text = "Score: 0";
@@ -158,6 +160,7 @@ public class DragonPicker : MonoBehaviour
         if(shieldList.Count <= 0)
         {
             YandexGame.RewVideoShow(0);
+            endModal.ToggleEndModal(RootToEnd.PlayerIsDead);
             YGSaveData("Береги щиты!");
             SceneManager.LoadScene("_0Scene");
         }
@@ -172,7 +175,7 @@ public class DragonPicker : MonoBehaviour
     public void ElementHit(string tag)
     {
         var newElement = TagToElementrsEnum(tag);
-        elementsDict[newElement].count = Math.Clamp(elementsDict[newElement].count + 1, 0, elementsCopacity);
+        elementsDict[newElement].count = Math.Clamp(elementsDict[newElement].count + 1, 0, YandexGame.savesData.elementsCopacity);
         elementsGT.text = string.Join("\n", elementsDict
             .Select((e) => $"{TagToElementrsEnum(e.Value.elementObj.tag)} - {e.Value.count}")
             .ToArray()
@@ -213,12 +216,12 @@ public class DragonPicker : MonoBehaviour
 
     public void ExcSpell()
     {
-        if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Earth, 2, 15); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == null) {  ShootProjectile(ElementsEnum.Fire, 2, 5, false, true); }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Wind, 4, 30); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { ShootProjectile(ElementsEnum.Fire, 1, 10f, true, true); }
+        if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Earth, baseSpellSpeed, baseDamage*3); }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == null) {  ShootProjectile(ElementsEnum.Fire, baseSpellSpeed, baseDamage, false, true); }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Wind, baseSpellSpeed*2, baseDamage*2); }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { ShootProjectile(ElementsEnum.Fire, baseSpellSpeed/2, baseDamage, true, true); }
         else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Fire) { MakeParryState(); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { for(int i = 0; i<5;i++) { ShootProjectile(ElementsEnum.Earth, 3, 10); } }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { for(int i = 0; i<5;i++) { ShootProjectile(ElementsEnum.Earth, baseSpellSpeed*3, baseDamage); } }
         else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Wind) { MakeShield(); }
         else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Earth) { enemyDragon.TempIncressSpeedMultiplier(); }
         else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Fire) { MakeAura(); }
@@ -251,8 +254,8 @@ public class DragonPicker : MonoBehaviour
     {
         Debug.Log("Shooted");
         var shootedProjectile = Instantiate<GameObject>(projectilePrefab, shieldList[0].transform.position + new Vector3(0, 2, 0), shieldList[0].transform.rotation).GetComponent<Projectile>();
-        shootedProjectile.speed = speed;
-        shootedProjectile.damage = damage * damageMultiplier;
+        shootedProjectile.speed = speed * YandexGame.savesData.speedScale;
+        shootedProjectile.damage = damage * damageMultiplier * YandexGame.savesData.damageScale;
         shootedProjectile.type = type;
         shootedProjectile.autoAim = autoAim;
         shootedProjectile.isDurational = isDurational;

@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
+using YG;
 
 public class NewBehaviourScript : MonoBehaviour
 {
@@ -14,11 +18,13 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] private float leftRightDistance = 10f;
     [SerializeField] private float chanceDirection = 0.1f;
     [SerializeField] private float health;
+    [SerializeField] private float expirience = 60;
 
     private float damageDamage;
     private float speedMultiplier = 1;
     private ElementsEnum damageType;
     private TextMeshProUGUI dragonHealthGT;
+    private EndModal endModal;
 
     private void ReturnSpeedMultiplier()
     {
@@ -29,6 +35,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         Invoke("DropEgg", timeBeforeFirstEggDrop);
         dragonHealthGT = GameObject.Find("DragonHealth").GetComponent<TextMeshProUGUI>();
+        endModal = GameObject.FindObjectOfType<EndModal>(true);
     }
 
     void DropEgg()
@@ -48,8 +55,12 @@ public class NewBehaviourScript : MonoBehaviour
             speed = Mathf.Abs(speed);
         else if (pos.x > leftRightDistance)
             speed = -Mathf.Abs(speed);
+
         if (health <= 0)
+        {
+            endModal.ToggleEndModal(RootToEnd.DragonIsDead);
             Destroy(gameObject);
+        }
     }
 
     private void FixedUpdate()
@@ -100,5 +111,11 @@ public class NewBehaviourScript : MonoBehaviour
     {
         speedMultiplier = 0;
         Invoke("ReturnSpeedMultiplier", 3);
+    }
+
+    public void YGSaveData(string? newAchivment)
+    {
+        YandexGame.savesData.expirience += expirience;
+        YandexGame.SaveProgress();
     }
 }

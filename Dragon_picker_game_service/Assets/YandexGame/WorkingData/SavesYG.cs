@@ -20,6 +20,12 @@ namespace YG
 
         public int bestScore = 0;
         public string[] achivments = new string[0];
+        public float damageScale = 1;
+        public float speedScale = 1;
+        public int numEnegryShield = 3;
+        public int elementsCopacity = 5;
+        public float expirience = 0;
+        public int level = 1;
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
 
