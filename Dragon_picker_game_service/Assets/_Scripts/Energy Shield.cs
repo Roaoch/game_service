@@ -24,7 +24,6 @@ public class EnergyShield : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
         if (collision.collider.tag == "Dragon Egg")
         {
             DragonPicker apScript = Camera.main.GetComponent<DragonPicker>();

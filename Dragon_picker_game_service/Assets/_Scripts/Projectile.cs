@@ -12,13 +12,12 @@ public class Projectile : MonoBehaviour
     public bool isDurational;
     public ElementsEnum type;
     public bool autoAim;
-    // Start is called before the first frame update
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         enemy = GameObject.Find("Root");

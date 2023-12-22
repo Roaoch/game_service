@@ -1,12 +1,15 @@
+using OpenCover.Framework.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using YG;
+using static DragonPicker;
 
 public enum ElementsEnum
 {
@@ -18,35 +21,47 @@ public enum ElementsEnum
 public class DragonPicker : MonoBehaviour
 {
     [Serializable]
-    class ElementsListItem
+   public class ElementsListItem
     {
         public GameObject elementObj;
         public int count = 0;
+
+        public ElementsListItem(GameObject elementObj, int count)
+        {
+            this.elementObj = elementObj;
+            this.count = count;
+        }
     }
 
     private void OnEnable() => YandexGame.GetDataEvent += GetYGSaves;
     private void OnDisable() => YandexGame.GetDataEvent -= GetYGSaves;
 
-    
+    public List<GameObject> elementsList;
+
     [SerializeField] private int numEnegryShield = 3;
     [SerializeField] private float energyShieldBottomY = -6f;
     [SerializeField] private float energyShieldRadius = 1.5f;
+    [SerializeField] private int elementsCopacity = 5;
+    [SerializeField] private float damageMultiplier = 1;
     [SerializeField] private GameObject energyShieldPrefab;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private List<GameObject> shieldList;
-    [SerializeField] private List<ElementsListItem> elementsList;
 
     private int timeBetweenSpawnElements = 3;
     private float time = 0;
     private int score = 0;
+    private bool isDamageBlocked = false;
+    private bool isParryState = false;
+    private Dictionary<ElementsEnum, ElementsListItem> elementsDict;
     private ElementsEnum?[] elementsHand = new ElementsEnum?[2];
+    private NewBehaviourScript enemyDragon;
 
     private TextMeshProUGUI scoreGT;
     private TextMeshProUGUI playerNameGT;
     private TextMeshProUGUI elementsGT;
     private TextMeshProUGUI elementsHandGT;
 
-    private ElementsEnum tagToElementrsEnum(string tag)
+    private ElementsEnum TagToElementrsEnum(string tag)
     {
         if (tag.Contains("Fire")) { return ElementsEnum.Fire; }
         else if (tag.Contains("Earth")) { return ElementsEnum.Earth; }
@@ -55,6 +70,21 @@ public class DragonPicker : MonoBehaviour
         {
             throw new Exception(tag);
         }
+    }
+
+    private void ToggleBlock()
+    {
+        isDamageBlocked = !isDamageBlocked;
+    }
+
+    private void RemoveAura()
+    {
+        damageMultiplier = 1;
+    }
+
+    private void RemoveParryState() 
+    {
+        isParryState = false;
     }
 
     void Start()
@@ -68,6 +98,10 @@ public class DragonPicker : MonoBehaviour
             tShieldGo.transform.localScale = new Vector3(1 * i, 1 * i, 1 * i);
             shieldList.Add(tShieldGo);
         }
+
+        elementsDict = elementsList.ToDictionary(e => TagToElementrsEnum(e.tag), e => new ElementsListItem(e, 0));
+
+        enemyDragon = GameObject.Find("Enemy").GetComponent<NewBehaviourScript>();
 
         scoreGT = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
         scoreGT.text = "Score: 0";
@@ -87,7 +121,7 @@ public class DragonPicker : MonoBehaviour
             SpawnElement();
             time = 0;
         }
-        if (elementsList[0].count > 0)
+        /*if (elementsList[0].count > 0)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 AddElementToHand(ElementsEnum.Earth);
@@ -106,11 +140,17 @@ public class DragonPicker : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.G))
             {
                 ExcSpell();              
-            }
+            }*/
     }
 
     public void EggHitShield()
     {
+        if (isDamageBlocked) return;
+        else if (isParryState)
+        {
+            enemyDragon.GetDamage((float)(3 * (28 - Math.Pow(shieldList.Count, 3))), enemyDragon.element, false);
+        }
+
         GameObject tShieldGo = shieldList[shieldList.Count - 1];
         shieldList.RemoveAt(shieldList.Count - 1);
         Destroy(tShieldGo);
@@ -131,18 +171,12 @@ public class DragonPicker : MonoBehaviour
 
     public void ElementHit(string tag)
     {
-        foreach (var element in elementsList)
-        {
-            if (element.elementObj.tag == tag)
-            {
-                element.count += 1;
-                elementsGT.text = string.Join("\n", elementsList
-                    .Select((e) => $"{tagToElementrsEnum(e.elementObj.tag)} - {e.count}")
-                    .ToArray()
-                );
-                break;
-            }
-        }
+        var newElement = TagToElementrsEnum(tag);
+        elementsDict[newElement].count = Math.Clamp(elementsDict[newElement].count + 1, 0, elementsCopacity);
+        elementsGT.text = string.Join("\n", elementsDict
+            .Select((e) => $"{TagToElementrsEnum(e.Value.elementObj.tag)} - {e.Value.count}")
+            .ToArray()
+        );
     }
 
     public void SpawnElement()
@@ -151,33 +185,43 @@ public class DragonPicker : MonoBehaviour
         var element = r.Next(0,3);
         var coordinatesWidth = r.Next(-19, 19);
         var coordinatesHeight = r.Next(-5, 9);
-        Instantiate(elementsList[element].elementObj, new Vector3(coordinatesWidth, coordinatesHeight, -2), new Quaternion(0,0,0,0));
+        Instantiate(elementsList[element], new Vector3(coordinatesWidth, coordinatesHeight, -2), new Quaternion(0,0,0,0));
     }
 
     public void AddElementToHand(ElementsEnum element)
     {
-        for (var i = 0; i < elementsHand.Length; i++) 
-        { 
-            if (elementsHand[i] == null)
-            {
-                elementsHand[i] = element;
-                elementsHandGT.text = string.Join(" ", elementsHand);
-                break;
+        if (elementsDict[element].count > 0 )
+        {
+            elementsDict[element].count -= 1;
+            elementsGT.text = string.Join("\n", elementsDict
+               .Select((e) => $"{TagToElementrsEnum(e.Value.elementObj.tag)} - {e.Value.count}")
+               .ToArray()
+            );
+
+            for (var i = 0; i < elementsHand.Length; i++) 
+            { 
+                if (elementsHand[i] == null)
+                {
+                    elementsHand[i] = element;
+                    elementsHandGT.text = string.Join(" ", elementsHand);
+                    break;
+                }
             }
         }
+        
     }
 
     public void ExcSpell()
     {
-        if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == null) { Debug.Log("Earth spell"); ShootProjectile(ElementsEnum.Earth, 2, 15); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == null) { Debug.Log("fire spell"); ShootProjectile(ElementsEnum.Fire, 2, 5, false, true); }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { Debug.Log("wind spell"); ShootProjectile(ElementsEnum.Wind, 4, 30); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { Debug.Log("fire+wind spell"); ShootProjectile(ElementsEnum.Fire, 1, 10f, true, true); }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Fire) { Debug.Log("Wind+fire spell"); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { Debug.Log("Fire+earth spell");  for(int i = 0; i<5;i++) { ShootProjectile(ElementsEnum.Earth, 3, 10); } }
-        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Wind) { Debug.Log("Earth+wind spell"); }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Earth) { Debug.Log("wind+earth spell"); }
-        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Fire) { Debug.Log("Earth+fire spell"); }
+        if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Earth, 2, 15); }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == null) {  ShootProjectile(ElementsEnum.Fire, 2, 5, false, true); }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Wind, 4, 30); }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { ShootProjectile(ElementsEnum.Fire, 1, 10f, true, true); }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Fire) { MakeParryState(); }
+        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { for(int i = 0; i<5;i++) { ShootProjectile(ElementsEnum.Earth, 3, 10); } }
+        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Wind) { MakeShield(); }
+        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Earth) { enemyDragon.TempIncressSpeedMultiplier(); }
+        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Fire) { MakeAura(); }
 
         elementsHand = new ElementsEnum?[elementsHand.Length];
         elementsHandGT.text = "";
@@ -208,9 +252,27 @@ public class DragonPicker : MonoBehaviour
         Debug.Log("Shooted");
         var shootedProjectile = Instantiate<GameObject>(projectilePrefab, shieldList[0].transform.position + new Vector3(0, 2, 0), shieldList[0].transform.rotation).GetComponent<Projectile>();
         shootedProjectile.speed = speed;
-        shootedProjectile.damage = damage;
+        shootedProjectile.damage = damage * damageMultiplier;
         shootedProjectile.type = type;
         shootedProjectile.autoAim = autoAim;
         shootedProjectile.isDurational = isDurational;
+    }
+
+    public void MakeShield()
+    {
+        isDamageBlocked = true;
+        Invoke("ToggleBlock", 5);
+    }
+
+    public void MakeAura()
+    {
+        damageMultiplier = 2;
+        Invoke("RemoveAura", 3);
+    }
+
+    public void MakeParryState() 
+    {
+        isParryState = true;
+        Invoke("RemoveParryState", 1);
     }
 }
