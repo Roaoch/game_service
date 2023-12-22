@@ -65,7 +65,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Random.value < chanceDirection)
+        if (UnityEngine.Random.value < chanceDirection)
         {
             speed *= -1;
         }

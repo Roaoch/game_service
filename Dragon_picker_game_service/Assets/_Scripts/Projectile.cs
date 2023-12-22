@@ -25,7 +25,7 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         if(autoAim)
         {
-            transform.position = Vector3.Lerp(transform.position, enemy.transform.position, speed * Time.fixedDeltaTime);
+            transform.position = Vector3.Lerp(transform.position, enemy.transform.position, speed * Time.deltaTime);
         }
         else
             rb.velocity = new Vector3(0, speed, 0);
