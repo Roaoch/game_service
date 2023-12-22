@@ -1503,6 +1503,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee5c9995a4e43a4fa389051624e4f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  earthLevel: {fileID: 0}
+  fireLevel: {fileID: 0}
+  windLevel: {fileID: 0}
+  playGameButton: {fileID: 0}
+  achivmentButton: {fileID: 0}
+  optionButton: {fileID: 0}
 --- !u!1 &848403865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7551630499030188363, guid: ffedd4fede6355547a8291a422e3e626, type: 3}
@@ -2471,7 +2477,7 @@ GameObject:
   - component: {fileID: 1726398913}
   - component: {fileID: 1726398912}
   m_Layer: 5
-  m_Name: Best Score
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2517,7 +2523,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Best Score: '
+  m_text: 'Level: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2640,6 +2646,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee5c9995a4e43a4fa389051624e4f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  earthLevel: {fileID: 0}
+  fireLevel: {fileID: 0}
+  windLevel: {fileID: 0}
+  playGameButton: {fileID: 0}
+  achivmentButton: {fileID: 0}
+  optionButton: {fileID: 0}
 --- !u!1 &1827583418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2669,6 +2681,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ee5c9995a4e43a4fa389051624e4f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  earthLevel: {fileID: 0}
+  fireLevel: {fileID: 0}
+  windLevel: {fileID: 0}
+  playGameButton: {fileID: 0}
+  achivmentButton: {fileID: 0}
+  optionButton: {fileID: 0}
 --- !u!4 &1827583420
 Transform:
   m_ObjectHideFlags: 0

@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 
 public enum RootToEnd
 {
@@ -13,11 +16,7 @@ public enum RootToEnd
 
 public class EndModal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private TextMeshProUGUI endModalText;
 
     public void LoadMainMenu()
     {
@@ -33,7 +32,36 @@ public class EndModal : MonoBehaviour
 
     public void ToggleEndModal(RootToEnd rootToEnd)
     {
+        if (endModalText == null)
+        {
+            endModalText = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        }
+
         gameObject.SetActive(!gameObject.activeSelf);
         Time.timeScale = gameObject.activeSelf ? 0 : 1;
+
+        if (rootToEnd is RootToEnd.InGame)
+        {
+            endModalText.text = "Pause";
+        }
+        else if (rootToEnd is RootToEnd.PlayerIsDead)
+        {
+            endModalText.text = "You Die";
+        }
+        else if (rootToEnd is RootToEnd.DragonIsDead)
+        {
+            var newLevel = (int)Math.Floor(YandexGame.savesData.expirience / YandexGame.savesData.toNewLevel);
+            if (newLevel >= ++YandexGame.savesData.level)
+            {
+                YandexGame.savesData.level = newLevel;
+                YandexGame.savesData.levelUpPoints += newLevel - YandexGame.savesData.level;
+                YandexGame.SaveProgress();
+                endModalText.text = $"You acquire {newLevel} level!";
+            }
+            else
+            {
+                endModalText.text = $"need {YandexGame.savesData.level * YandexGame.savesData.toNewLevel - YandexGame.savesData.expirience}exp to {++newLevel} level";
+            }
+        }
     }
 }

@@ -55,12 +55,6 @@ public class NewBehaviourScript : MonoBehaviour
             speed = Mathf.Abs(speed);
         else if (pos.x > leftRightDistance)
             speed = -Mathf.Abs(speed);
-
-        if (health <= 0)
-        {
-            endModal.ToggleEndModal(RootToEnd.DragonIsDead);
-            Destroy(gameObject);
-        }
     }
 
     private void FixedUpdate()
@@ -104,7 +98,18 @@ public class NewBehaviourScript : MonoBehaviour
             if (element is ElementsEnum.Wind && damageType is ElementsEnum.Fire)
                 health -= damageDamage * 1.2f;
         }
-        dragonHealthGT.text = health.ToString();
+        
+        if (health <= 0)
+        {
+            YGSaveData();
+            endModal.ToggleEndModal(RootToEnd.DragonIsDead);
+            dragonHealthGT.text = "";
+            Destroy(gameObject);
+        } 
+        else
+        {
+            dragonHealthGT.text = health.ToString();
+        }
     }
 
     public void TempIncressSpeedMultiplier()
@@ -113,9 +118,9 @@ public class NewBehaviourScript : MonoBehaviour
         Invoke("ReturnSpeedMultiplier", 3);
     }
 
-    public void YGSaveData(string? newAchivment)
+    public void YGSaveData()
     {
-        YandexGame.savesData.expirience += expirience;
+        YandexGame.savesData.expirience += expirience * YandexGame.savesData.expirienceScale;
         YandexGame.SaveProgress();
     }
 }

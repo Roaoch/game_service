@@ -10,18 +10,15 @@ public class ConnectYG : MonoBehaviour
     private void OnEnable() => YandexGame.GetDataEvent += EnableYG;
     private void OnDisable() => YandexGame.GetDataEvent -= EnableYG;
 
-    public TextMeshProUGUI bestScoreGT;
-    public TextMeshProUGUI achivmentsListGT;
+    private TextMeshProUGUI levelGT;
 
     private void Start()
     {
+        levelGT = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
         if (YandexGame.SDKEnabled)
         {
             EnableYG();
         }
-
-        bestScoreGT = GameObject.Find("Best Score").GetComponent<TextMeshProUGUI>();
-        achivmentsListGT = GameObject.Find("AchivmentsList").GetComponent<TextMeshProUGUI>();
     }
 
     public void EnableYG()
@@ -29,8 +26,7 @@ public class ConnectYG : MonoBehaviour
         if (YandexGame.auth)
         {
             Debug.Log("Authentication ok");
-            bestScoreGT.text = $"Best Score: {YandexGame.savesData.bestScore}";
-            achivmentsListGT.text = string.Join("\n", YandexGame.savesData.achivments);
+            levelGT.text = $"Level: {YandexGame.savesData.level}";
         }
         else
         {

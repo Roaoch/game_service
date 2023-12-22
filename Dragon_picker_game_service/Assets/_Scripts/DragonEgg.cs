@@ -26,8 +26,6 @@ public class DragonEgg : MonoBehaviour
         
         if(transform.position.y < bottomY)
         {
-            DragonPicker apScript = Camera.main.GetComponent<DragonPicker>();
-            apScript.EggHitGround();
             audioSource.Play();
 
             Destroy(gameObject);           
