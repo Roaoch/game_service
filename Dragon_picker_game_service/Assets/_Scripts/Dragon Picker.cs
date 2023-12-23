@@ -1,4 +1,3 @@
-using OpenCover.Framework.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,7 +48,6 @@ public class DragonPicker : MonoBehaviour
     private float damageMultiplier = 1;
     private int timeBetweenSpawnElements = 3;
     private float time = 0;
-    private int score = 0;
     private bool isDamageBlocked = false;
     private bool isParryState = false;
     private Dictionary<ElementsEnum, ElementsListItem> elementsDict;
@@ -57,7 +55,6 @@ public class DragonPicker : MonoBehaviour
     private NewBehaviourScript enemyDragon;
     private EndModal endModal;
 
-    private TextMeshProUGUI scoreGT;
     private TextMeshProUGUI playerNameGT;
     private TextMeshProUGUI elementsGT;
     private TextMeshProUGUI elementsHandGT;
@@ -105,9 +102,6 @@ public class DragonPicker : MonoBehaviour
         enemyDragon = GameObject.Find("Enemy").GetComponent<NewBehaviourScript>();
         endModal = GameObject.FindObjectOfType<EndModal>(true);
 
-        scoreGT = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
-        scoreGT.text = "Score: 0";
-
         playerNameGT = GameObject.Find("Player Name").GetComponent<TextMeshProUGUI>();
         elementsGT = GameObject.Find("Elements").GetComponent<TextMeshProUGUI>();
         elementsHandGT = GameObject.Find("ElementsHand").GetComponent<TextMeshProUGUI>();
@@ -141,14 +135,8 @@ public class DragonPicker : MonoBehaviour
         {
             YandexGame.RewVideoShow(0);
             endModal.ToggleEndModal(RootToEnd.PlayerIsDead);
-            YGSaveData("Береги щиты!");
+            YGSaveData();
         }
-    }
-
-    public void EggHitGround()
-    {
-        score += 1;
-        scoreGT.text = $"Score: {score}";
     }
 
     public void ElementHit(string tag)
@@ -214,18 +202,8 @@ public class DragonPicker : MonoBehaviour
         playerNameGT.text = YandexGame.playerName;
     }
 
-    public void YGSaveData(string? newAchivment)
+    public void YGSaveData()
     {
-        YandexGame.savesData.bestScore = Math.Max(YandexGame.savesData.bestScore, score);
-        YandexGame.NewLeaderboardScores("TopPlayerScore", score);
-
-        if(newAchivment != null)
-        {
-            YandexGame.savesData.achivments = YandexGame.savesData.achivments
-                .Append(newAchivment)
-                .Distinct()
-                .ToArray();
-        }
         YandexGame.SaveProgress();
     }
 

@@ -18,14 +18,15 @@ namespace YG
 
         // Ваши сохранения
 
-        public int bestScore = 0;
-        public string[] achivments = new string[0];
         public float damageScale = 1;
         public float speedScale = 1;
+        public float expirienceScale = 1;
         public int numEnegryShield = 3;
         public int elementsCopacity = 5;
         public float expirience = 0;
-        public int level = 1;
+        public int level = 0;
+        public float toNewLevel = 100;
+        public int levelUpPoints = 0;
 
         // Поля (сохранения) можно удалять и создавать новые. При обновлении игры сохранения ломаться не должны
 

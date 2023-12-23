@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ElementToLevel : MonoBehaviour
 {
     [SerializeField] private int Level;
-    public   void OnHitByPlayer()
+    public void OnHitByPlayer()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + Level);
     }
