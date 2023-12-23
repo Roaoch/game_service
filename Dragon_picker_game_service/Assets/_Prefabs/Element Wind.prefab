@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4067157828768052507}
   - component: {fileID: 8385841800422336229}
   - component: {fileID: 5709032712089463259}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Element Wind
   m_TagString: Element Wind
   m_Icon: {fileID: 0}

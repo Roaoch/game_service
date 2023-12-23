@@ -12,9 +12,19 @@ public class Projectile : MonoBehaviour
     public ElementsEnum type;
     public bool autoAim;
 
+    [SerializeField] private Material earthMaterial;
+    [SerializeField] private Material fireMaterial;
+    [SerializeField] private Material windMaterial;
+
     void Start()
     {
-        
+        var curMaterial = gameObject.GetComponent<Renderer>();
+        if (type == ElementsEnum.Earth)
+            curMaterial.sharedMaterial = earthMaterial;
+        else if (type == ElementsEnum.Fire) 
+            curMaterial.sharedMaterial = fireMaterial;
+        else if (type == ElementsEnum.Wind)
+            curMaterial.sharedMaterial = windMaterial;
     }
 
     void Update()
