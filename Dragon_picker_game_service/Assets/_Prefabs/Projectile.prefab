@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -6074123883254027913}
   - component: {fileID: 4815961844909446029}
   - component: {fileID: 6067106595544600340}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,6 +105,9 @@ MonoBehaviour:
   isDurational: 0
   type: 0
   autoAim: 0
+  earthMaterial: {fileID: 2100000, guid: 02233442219ea264fb7d3b96e3582eb1, type: 2}
+  fireMaterial: {fileID: 2100000, guid: 9f663aa0d3dc3f44389306ed68c6c668, type: 2}
+  windMaterial: {fileID: 2100000, guid: 00c18468859dfde44967239a03b28ae1, type: 2}
 --- !u!54 &4815961844909446029
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 using YG;
 
 public class NewBehaviourScript : MonoBehaviour
@@ -23,9 +24,9 @@ public class NewBehaviourScript : MonoBehaviour
     private float damageDamage;
     private float speedMultiplier = 1;
     private ElementsEnum damageType;
-    private TextMeshProUGUI dragonHealthGT;
+    private Slider dragonHealthGT;
     private EndModal endModal;
-
+    private float healthMax;
     private void ReturnSpeedMultiplier()
     {
         speedMultiplier = 1;
@@ -34,8 +35,9 @@ public class NewBehaviourScript : MonoBehaviour
     void Start()
     {
         Invoke("DropEgg", timeBeforeFirstEggDrop);
-        dragonHealthGT = GameObject.Find("DragonHealth").GetComponent<TextMeshProUGUI>();
+        dragonHealthGT = GameObject.Find("Health").GetComponent<Slider>();
         endModal = GameObject.FindObjectOfType<EndModal>(true);
+        healthMax = health;
     }
 
     void DropEgg()
@@ -85,17 +87,17 @@ public class NewBehaviourScript : MonoBehaviour
         else
         {
             Debug.Log("Unequal types");
-            if (element is ElementsEnum.Fire && damageType is ElementsEnum.Wind)
+            if (element is ElementsEnum.Огонь && damageType is ElementsEnum.Ветер)
                 health -= damageDamage * 0.8f;
-            if (element is ElementsEnum.Fire && damageType is ElementsEnum.Earth)
+            if (element is ElementsEnum.Огонь && damageType is ElementsEnum.Земля)
                 health -= damageDamage * 1.2f;
-            if (element is ElementsEnum.Earth && damageType is ElementsEnum.Fire)
+            if (element is ElementsEnum.Земля && damageType is ElementsEnum.Огонь)
                 health -= damageDamage * 0.8f;
-            if (element is ElementsEnum.Earth && damageType is ElementsEnum.Wind)
+            if (element is ElementsEnum.Земля && damageType is ElementsEnum.Ветер)
                 health -= damageDamage * 1.2f;
-            if (element is ElementsEnum.Wind && damageType is ElementsEnum.Earth)
+            if (element is ElementsEnum.Ветер && damageType is ElementsEnum.Земля)
                 health -= damageDamage * 0.8f;
-            if (element is ElementsEnum.Wind && damageType is ElementsEnum.Fire)
+            if (element is ElementsEnum.Ветер && damageType is ElementsEnum.Огонь)
                 health -= damageDamage * 1.2f;
         }
         
@@ -103,12 +105,12 @@ public class NewBehaviourScript : MonoBehaviour
         {
             YGSaveData();
             endModal.ToggleEndModal(RootToEnd.DragonIsDead);
-            dragonHealthGT.text = "";
+            dragonHealthGT.value = 0;
             Destroy(gameObject);
         } 
         else
         {
-            dragonHealthGT.text = health.ToString();
+            dragonHealthGT.value = 1 - (healthMax-health)/healthMax;
         }
     }
 

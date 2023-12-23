@@ -12,9 +12,9 @@ using static DragonPicker;
 
 public enum ElementsEnum
 {
-    Fire,
-    Earth,
-    Wind
+    Огонь,
+    Земля,
+    Ветер
 }
 
 public class DragonPicker : MonoBehaviour
@@ -43,6 +43,9 @@ public class DragonPicker : MonoBehaviour
     [SerializeField] private float baseSpellSpeed = 5;
     [SerializeField] private GameObject energyShieldPrefab;
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject blockShieldPrefab;
+    [SerializeField] private GameObject parryShieldPrefab;
+    [SerializeField] private GameObject auraPrefab;
     [SerializeField] private List<GameObject> shieldList;
 
     private float damageMultiplier = 1;
@@ -54,6 +57,9 @@ public class DragonPicker : MonoBehaviour
     private ElementsEnum?[] elementsHand = new ElementsEnum?[2];
     private NewBehaviourScript enemyDragon;
     private EndModal endModal;
+    private GameObject blockShield;
+    private GameObject parryShield;
+    private GameObject aura;
 
     private TextMeshProUGUI playerNameGT;
     private TextMeshProUGUI elementsGT;
@@ -61,9 +67,9 @@ public class DragonPicker : MonoBehaviour
 
     private ElementsEnum TagToElementrsEnum(string tag)
     {
-        if (tag.Contains("Fire")) { return ElementsEnum.Fire; }
-        else if (tag.Contains("Earth")) { return ElementsEnum.Earth; }
-        else if (tag.Contains("Wind")) { return ElementsEnum.Wind; }
+        if (tag.Contains("Fire")) { return ElementsEnum.Огонь; }
+        else if (tag.Contains("Earth")) { return ElementsEnum.Земля; }
+        else if (tag.Contains("Wind")) { return ElementsEnum.Ветер; }
         else
         {
             throw new Exception(tag);
@@ -73,16 +79,19 @@ public class DragonPicker : MonoBehaviour
     private void ToggleBlock()
     {
         isDamageBlocked = !isDamageBlocked;
+        Destroy(blockShield);
     }
 
     private void RemoveAura()
     {
         damageMultiplier = 1;
+        Destroy(aura);
     }
 
     private void RemoveParryState() 
     {
         isParryState = false;
+        Destroy(parryShield);
     }
 
     void Start()
@@ -117,6 +126,12 @@ public class DragonPicker : MonoBehaviour
             SpawnElement();
             time = 0;
         }
+        if(blockShield is not null)
+            blockShield.transform.position = shieldList[0].transform.position;
+        if (aura is not null)
+            aura.transform.position = shieldList[0].transform.position;
+        if (parryShield is not null)
+            parryShield.transform.position = shieldList[0].transform.position;
     }
 
     public void EggHitShield()
@@ -183,15 +198,15 @@ public class DragonPicker : MonoBehaviour
 
     public void ExcSpell()
     {
-        if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Earth, baseSpellSpeed, baseDamage*3); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == null) {  ShootProjectile(ElementsEnum.Fire, baseSpellSpeed, baseDamage, false, true); }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Wind, baseSpellSpeed*2, baseDamage*2); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Wind) { ShootProjectile(ElementsEnum.Fire, baseSpellSpeed/2, baseDamage, true, true); }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Fire) { MakeParryState(); }
-        else if (elementsHand[0] == ElementsEnum.Fire && elementsHand[1] == ElementsEnum.Earth) { for(int i =0; i<5;i++) ShootProjectile(ElementsEnum.Earth, baseSpellSpeed*3, baseDamage);  }
-        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Wind) { MakeShield(); }
-        else if (elementsHand[0] == ElementsEnum.Wind && elementsHand[1] == ElementsEnum.Earth) { enemyDragon.TempIncressSpeedMultiplier(); }
-        else if (elementsHand[0] == ElementsEnum.Earth && elementsHand[1] == ElementsEnum.Fire) { MakeAura(); }
+        if (elementsHand[0] == ElementsEnum.Земля && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Земля, baseSpellSpeed, baseDamage*3); }
+        else if (elementsHand[0] == ElementsEnum.Огонь && elementsHand[1] == null) {  ShootProjectile(ElementsEnum.Огонь, baseSpellSpeed, baseDamage, false, true); }
+        else if (elementsHand[0] == ElementsEnum.Ветер && elementsHand[1] == null) { ShootProjectile(ElementsEnum.Ветер, baseSpellSpeed*2, baseDamage*2); }
+        else if (elementsHand[0] == ElementsEnum.Огонь && elementsHand[1] == ElementsEnum.Ветер) { ShootProjectile(ElementsEnum.Огонь, baseSpellSpeed/2, baseDamage, true, true); }
+        else if (elementsHand[0] == ElementsEnum.Ветер && elementsHand[1] == ElementsEnum.Огонь) { MakeParryState(); }
+        else if (elementsHand[0] == ElementsEnum.Огонь && elementsHand[1] == ElementsEnum.Земля) { for(int i =0; i<5;i++) ShootProjectile(ElementsEnum.Земля, baseSpellSpeed*3, baseDamage);  }
+        else if (elementsHand[0] == ElementsEnum.Земля && elementsHand[1] == ElementsEnum.Ветер) { MakeShield(); }
+        else if (elementsHand[0] == ElementsEnum.Ветер && elementsHand[1] == ElementsEnum.Земля) { enemyDragon.TempIncressSpeedMultiplier(); }
+        else if (elementsHand[0] == ElementsEnum.Земля && elementsHand[1] == ElementsEnum.Огонь) { MakeAura(); }
 
         elementsHand = new ElementsEnum?[elementsHand.Length];
         elementsHandGT.text = "";
@@ -221,18 +236,21 @@ public class DragonPicker : MonoBehaviour
     public void MakeShield()
     {
         isDamageBlocked = true;
+        blockShield = Instantiate(blockShieldPrefab, shieldList[0].transform.position, shieldList[0].transform.rotation);
         Invoke("ToggleBlock", 5);
     }
 
     public void MakeAura()
     {
         damageMultiplier = 2;
+        aura = Instantiate(auraPrefab, shieldList[0].transform.position, shieldList[0].transform.rotation);
         Invoke("RemoveAura", 3);
     }
 
     public void MakeParryState() 
     {
         isParryState = true;
+        parryShield = Instantiate(parryShieldPrefab, shieldList[0].transform.position, shieldList[0].transform.rotation);
         Invoke("RemoveParryState", 1);
     }
 }

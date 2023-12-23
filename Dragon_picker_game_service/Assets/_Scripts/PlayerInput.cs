@@ -23,15 +23,15 @@ public class Pause : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Q))
         {
-            dragonPicker.AddElementToHand(ElementsEnum.Earth);
+            dragonPicker.AddElementToHand(ElementsEnum.Земля);
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
-            dragonPicker.AddElementToHand(ElementsEnum.Fire);
+            dragonPicker.AddElementToHand(ElementsEnum.Огонь);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            dragonPicker.AddElementToHand(ElementsEnum.Wind);
+            dragonPicker.AddElementToHand(ElementsEnum.Ветер);
         }
         else if (Input.GetMouseButtonDown(1))
         {
