@@ -1,5 +1,5 @@
 {
-    "idSave": 32,
+    "idSave": 53,
     "isFirstSession": false,
     "language": "ru",
     "promptDone": false,
@@ -14,9 +14,9 @@
     "speedScale": 1.2000000476837159,
     "expirienceScale": 1.6000001430511475,
     "numEnegryShield": 3,
-    "elementsCopacity": 6,
-    "expirience": 792.0,
-    "level": 7,
+    "elementsCopacity": 7,
+    "expirience": 1176.0,
+    "level": 11,
     "toNewLevel": 100.0,
-    "levelUpPoints": 0
+    "levelUpPoints": 2
 }

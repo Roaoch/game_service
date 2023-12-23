@@ -42,11 +42,11 @@ public class EndModal : MonoBehaviour
 
         if (rootToEnd is RootToEnd.InGame)
         {
-            endModalText.text = "Pause";
+            endModalText.text = "Пауза";
         }
         else if (rootToEnd is RootToEnd.PlayerIsDead)
         {
-            endModalText.text = "You Die";
+            endModalText.text = "Вы погибли";
         }
         else if (rootToEnd is RootToEnd.DragonIsDead)
         {
@@ -56,11 +56,11 @@ public class EndModal : MonoBehaviour
                 YandexGame.savesData.levelUpPoints += newLevel - YandexGame.savesData.level;
                 YandexGame.savesData.level = newLevel;
                 YandexGame.SaveProgress();
-                endModalText.text = $"You acquire {newLevel} level!";
+                endModalText.text = $"Вы получили {newLevel} уровень!";
             }
             else
             {
-                endModalText.text = $"need {(YandexGame.savesData.level + 1) * YandexGame.savesData.toNewLevel - YandexGame.savesData.expirience}exp to {++newLevel} level";
+                endModalText.text = $"нужно {(YandexGame.savesData.level + 1) * YandexGame.savesData.toNewLevel - YandexGame.savesData.expirience}опыта до {++newLevel} уровня";
             }
         }
     }

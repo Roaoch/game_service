@@ -87,17 +87,17 @@ public class NewBehaviourScript : MonoBehaviour
         else
         {
             Debug.Log("Unequal types");
-            if (element is ElementsEnum.Fire && damageType is ElementsEnum.Wind)
+            if (element is ElementsEnum.Огонь && damageType is ElementsEnum.Ветер)
                 health -= damageDamage * 0.8f;
-            if (element is ElementsEnum.Fire && damageType is ElementsEnum.Earth)
+            if (element is ElementsEnum.Огонь && damageType is ElementsEnum.Земля)
                 health -= damageDamage * 1.2f;
-            if (element is ElementsEnum.Earth && damageType is ElementsEnum.Fire)
+            if (element is ElementsEnum.Земля && damageType is ElementsEnum.Огонь)
                 health -= damageDamage * 0.8f;
-            if (element is ElementsEnum.Earth && damageType is ElementsEnum.Wind)
+            if (element is ElementsEnum.Земля && damageType is ElementsEnum.Ветер)
                 health -= damageDamage * 1.2f;
-            if (element is ElementsEnum.Wind && damageType is ElementsEnum.Earth)
+            if (element is ElementsEnum.Ветер && damageType is ElementsEnum.Земля)
                 health -= damageDamage * 0.8f;
-            if (element is ElementsEnum.Wind && damageType is ElementsEnum.Fire)
+            if (element is ElementsEnum.Ветер && damageType is ElementsEnum.Огонь)
                 health -= damageDamage * 1.2f;
         }
         

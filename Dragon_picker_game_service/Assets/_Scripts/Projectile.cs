@@ -19,11 +19,11 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         var curMaterial = gameObject.GetComponent<Renderer>();
-        if (type == ElementsEnum.Earth)
+        if (type == ElementsEnum.Земля)
             curMaterial.sharedMaterial = earthMaterial;
-        else if (type == ElementsEnum.Fire) 
+        else if (type == ElementsEnum.Огонь) 
             curMaterial.sharedMaterial = fireMaterial;
-        else if (type == ElementsEnum.Wind)
+        else if (type == ElementsEnum.Ветер)
             curMaterial.sharedMaterial = windMaterial;
     }
 
