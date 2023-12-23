@@ -15,9 +15,6 @@ public class ConnectYG : MonoBehaviour
 
     private void Start()
     {
-        levelGT = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
-        pointsGT = GameObject.Find("Points").GetComponent<TextMeshProUGUI>();
-
         if (YandexGame.SDKEnabled)
         {
             EnableYG();
@@ -29,6 +26,9 @@ public class ConnectYG : MonoBehaviour
         if (YandexGame.auth)
         {
             Debug.Log("Authentication ok");
+            levelGT = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
+            pointsGT = GameObject.Find("Points").GetComponent<TextMeshProUGUI>();
+
             levelGT.text = $"Level: {YandexGame.savesData.level}";
             pointsGT.text = $"Points: {YandexGame.savesData.levelUpPoints}";
         }

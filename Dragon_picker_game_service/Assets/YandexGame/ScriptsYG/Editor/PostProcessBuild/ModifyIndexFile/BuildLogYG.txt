@@ -1,2 +1,2 @@
-Build path: D:/Unity/Release/PluginYG/PluginYG
-Build number: 141
+Build path: C:/myFiles/game_service/Dragon_picker_game_service/Build
+Build number: 146
