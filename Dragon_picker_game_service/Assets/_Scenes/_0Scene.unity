@@ -4330,18 +4330,6 @@ Transform:
   m_Father: {fileID: 838063529}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6520392008897095568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7551630499472009093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69884f7fdccc5e349a0e326ed0947792, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &6572813636071491703
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -4417,7 +4405,6 @@ GameObject:
   - component: {fileID: 5530756765505004749}
   - component: {fileID: 6572813637851878780}
   - component: {fileID: 4067157830167204821}
-  - component: {fileID: 6520392008897095568}
   - component: {fileID: 8834876849737249602}
   - component: {fileID: 1841014485}
   m_Layer: 0

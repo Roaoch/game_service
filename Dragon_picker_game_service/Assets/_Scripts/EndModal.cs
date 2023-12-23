@@ -60,7 +60,7 @@ public class EndModal : MonoBehaviour
             }
             else
             {
-                endModalText.text = $"need {YandexGame.savesData.level * YandexGame.savesData.toNewLevel - YandexGame.savesData.expirience}exp to {++newLevel} level";
+                endModalText.text = $"need {(YandexGame.savesData.level + 1) * YandexGame.savesData.toNewLevel - YandexGame.savesData.expirience}exp to {++newLevel} level";
             }
         }
     }
