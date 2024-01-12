@@ -219,6 +219,7 @@ public class DragonPicker : MonoBehaviour
 
     public void YGSaveData()
     {
+        YandexGame.NewLeaderboardScores("TopPlayerScore", YandexGame.savesData.level);
         YandexGame.SaveProgress();
     }
 

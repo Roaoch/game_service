@@ -175,7 +175,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Price
+  m_Text: "\u0426\u0435\u043D\u0430"
 --- !u!1 &1072245816457178337
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +255,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.75
-  m_Text: Description
+  m_Text: "\u041E\u043F\u0438\u0441\u0430\u043D\u0438\u0435"
 --- !u!1 &1072245816626803404
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.87
-  m_Text: Title
+  m_Text: "\u041D\u0430\u0437\u0432\u0430\u043D\u0438\u0435"
 --- !u!1 &1072245816911568763
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +550,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Buy
+  m_Text: "\u041A\u0443\u043F\u0438\u0442\u044C"
 --- !u!114 &1072245817233832497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,8 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textLComponent: {fileID: 0}
-  textMPComponent: {fileID: 0}
+  textLComponent: {fileID: 1072245817233832496}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
   ru: "\u041A\u0443\u043F\u0438\u0442\u044C"
@@ -594,6 +593,7 @@ MonoBehaviour:
   it: 
   de: 
   hi: 
+  changeOnlyFont: 0
   fontNumber: 0
   uniqueFont: {fileID: 0}
   additionalText: {fileID: 0}
@@ -709,7 +709,7 @@ RectTransform:
   - {fileID: 9121998241240860649}
   - {fileID: 1072245816911568762}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -732,18 +732,15 @@ MonoBehaviour:
     title: {fileID: 1072245816626803406}
     description: {fileID: 1072245816457178339}
     priceValue: {fileID: 1072245816350100587}
-  textMP:
-    title: {fileID: 0}
-    description: {fileID: 0}
-    priceValue: {fileID: 0}
   imageLoad: {fileID: 1072245816115058379}
-  addYANtoPrice: 1
+  addYAN_toPrice: 1
   data:
     id: id
     title: 
     description: 
     imageURI: 
     priceValue: 
+    consumed: 0
 --- !u!222 &1072245818015344008
 CanvasRenderer:
   m_ObjectHideFlags: 0

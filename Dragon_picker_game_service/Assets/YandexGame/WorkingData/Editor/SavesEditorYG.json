@@ -1,22 +1,22 @@
 {
-  "idSave": 63,
-  "isFirstSession": false,
-  "language": "ru",
-  "promptDone": false,
-  "money": 1,
-  "newPlayerName": "Hello!",
-  "openLevels": [
-    false,
-    true,
-    false
-  ],
-  "damageScale": 1.2,
-  "speedScale": 1.4000001,
-  "expirienceScale": 1.60000014,
-  "numEnegryShield": 3,
-  "elementsCopacity": 8,
-  "expirience": 1464.0,
-  "level": 14,
-  "toNewLevel": 100.0,
-  "levelUpPoints": 2
+    "idSave": 69,
+    "isFirstSession": false,
+    "language": "ru",
+    "promptDone": false,
+    "money": 1,
+    "newPlayerName": "Hello!",
+    "openLevels": [
+        false,
+        true,
+        false
+    ],
+    "damageScale": 1.2000000476837159,
+    "speedScale": 1.4000000953674317,
+    "expirienceScale": 1.6000001430511475,
+    "numEnegryShield": 3,
+    "elementsCopacity": 8,
+    "expirience": 1656.0,
+    "level": 16,
+    "toNewLevel": 100.0,
+    "levelUpPoints": 4
 }

@@ -141,7 +141,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Update
+  m_Text: "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C"
 --- !u!114 &8641676098234162427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f34f36451b093ee4c83ad4aa5459d2ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textLComponent: {fileID: 0}
+  textLComponent: {fileID: 8641676098234162424}
   infoYG: {fileID: 11400000, guid: 162644796a8b0d044bce3d6fda0641e3, type: 2}
   text: 
   ru: "\u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C"
@@ -184,6 +184,7 @@ MonoBehaviour:
   it: 
   de: 
   hi: 
+  changeOnlyFont: 0
   fontNumber: 0
   uniqueFont: {fileID: 0}
   additionalText: {fileID: 0}
@@ -226,7 +227,7 @@ RectTransform:
   - {fileID: 8641676099085248150}
   - {fileID: 8641676097431393183}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -259,8 +260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPurchases: 1
   rootSpawnPurchases: {fileID: 8641676097431393183}
-  purchasePrefab: {fileID: 1072245818015344007, guid: 85a12be5ffc39d349bf6dccb22596603,
-    type: 3}
+  purchasePrefab: {fileID: 1072245818015344007, guid: 85a12be5ffc39d349bf6dccb22596603, type: 3}
   updateListMethod: 0
   purchases: []
 --- !u!222 &8641676098531048173
